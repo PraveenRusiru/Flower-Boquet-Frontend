@@ -1,0 +1,344 @@
+const API_BASE_URL = 'http://localhost:5002/api/v1';
+
+interface ApiResponse<T> {
+  data?: T;
+  message?: string;
+  error?: string;
+}
+
+
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('accessToken');
+  return {
+    'Content-Type': 'application/json',
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
+
+const getAuthHeadersMultipart = () => {
+  const token = localStorage.getItem('accessToken');
+  return {
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
+
+// Auth API
+export const authApi = {
+  register: async (data: { name: string; email: string; phone: string; password: string }) => {
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  login: async (data: { email: string; password: string }) => {
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  getProfile: async () => {
+    const response = await fetch(`${API_BASE_URL}/auth/get`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  },
+
+  updateProfile: async (data: { name: string; email: string; phone: string }) => {
+    const response = await fetch(`${API_BASE_URL}/auth/update`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  changePassword: async (data: { password: string; newPassword: string; ConfirmPassword: string }) => {
+    const response = await fetch(`${API_BASE_URL}/auth/changePw`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+  
+};
+
+// Gift/Products API
+export const giftApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/gift/getAllGifts`, {
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  },
+
+  create: async (formData: FormData) => {
+    console.log("API - Creating gift with formData:", formData);
+    const response = await fetch(`${API_BASE_URL}/gift/create`, {
+      method: 'POST',
+      headers: getAuthHeadersMultipart(),
+      body: formData,
+    });
+    return response.json();
+  },
+
+  updateDetails: async (data: {
+    giftId: string;
+    name: string;
+    description: string;
+    price: number;
+    colour: string;
+    size: string;
+    category: string;
+  }) => {
+    const response = await fetch(`${API_BASE_URL}/gift/updateDetails`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  updateImages: async (formData: FormData) => {
+    const response = await fetch(`${API_BASE_URL}/gift/updateImages`, {
+      method: 'PUT',
+      headers: getAuthHeadersMultipart(),
+      body: formData,
+
+    });
+    return response.json();
+  },
+
+  deleteImages: async (data: { giftId: string; publicId: string }) => {
+    const response = await fetch(`${API_BASE_URL}/gift/deleteImages`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+};
+
+// Customer API
+export const customerApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/customer/getAll`, {
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  },
+
+  get: async (customerId: string) => {
+    const response = await fetch(`${API_BASE_URL}/customer/get`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ customerId }),
+    });
+    return response.json();
+  },
+
+  create: async (data: { name: string; email: string; phone: string; address: string }) => {
+    const response = await fetch(`${API_BASE_URL}/customer/create`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  update: async (data: { customerId: string; name: string; email: string; phone: string; address: string }) => {
+    const response = await fetch(`${API_BASE_URL}/customer/update`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  delete: async (customerId: string) => {
+    const response = await fetch(`${API_BASE_URL}/customer/delete`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ customerId }),
+    });
+    return response.json();
+  },
+};
+
+// Order API
+export const orderApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/order/all`, {
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  },
+
+  get: async (orderId: string) => {
+    const response = await fetch(`${API_BASE_URL}/order/get`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ orderId }),
+    });
+    return response.json();
+  },
+
+  create: async (data: {
+    customerId: string;
+    items: { productId: string; quantity: number; price: number }[];
+    totalAmount: number;
+  }) => {
+    const response = await fetch(`${API_BASE_URL}/order/create`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  updateStatus: async (data: { orderId: string; status: string }) => {
+    const response = await fetch(`${API_BASE_URL}/order/updatestatus`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  delete: async (orderId: string) => {
+    const response = await fetch(`${API_BASE_URL}/order/delete`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ orderId }),
+    });
+    return response.json();
+  },
+};
+
+// Payment API
+export const paymentApi = {
+  process: async (data: {
+    orderId: string;
+    amount: number;
+    discount: number;
+    paymentMethod: string;
+  }) => {
+    const response = await fetch(`${API_BASE_URL}/payment/process`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  updateStatus: async (data: { paymentId: string; status: string }) => {
+    const response = await fetch(`${API_BASE_URL}/payment/updatestatus`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+};
+
+// Library API
+export const libraryApi = {
+  getAll: async () => {
+    const response = await fetch(`${API_BASE_URL}/library/getAll`, {
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  },
+
+  get: async (imageId: string) => {
+    const response = await fetch(`${API_BASE_URL}/library/get`, {
+      method: 'GET',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ imageId }),
+    });
+    return response.json();
+  },
+
+  create: async (formData: FormData) => {
+    const response = await fetch(`${API_BASE_URL}/library/create`, {
+      method: 'POST',
+      headers: getAuthHeadersMultipart(),
+      body: formData,
+    });
+    return response.json();
+  },
+
+  updateTitle: async (data: { libraryId: string; title: string }) => {
+    const response = await fetch(`${API_BASE_URL}/library/updateTitle`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+
+  updateImage: async (formData: FormData) => {
+    const response = await fetch(`${API_BASE_URL}/library/updateImg`, {
+      method: 'PUT',
+      headers: getAuthHeadersMultipart(),
+      body: formData,
+    });
+    return response.json();
+  },
+
+  deleteImage: async (libraryId: string) => {
+    const response = await fetch(`${API_BASE_URL}/library/deleteImg`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ libraryId }),
+    });
+    return response.json();
+  },
+
+  delete: async (libraryId: string) => {
+    const response = await fetch(`${API_BASE_URL}/library/delete`, {
+      method: 'DELETE',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ libraryId }),
+    });
+    return response.json();
+  },
+
+  findByName: async (title: string) => {
+    const response = await fetch(`${API_BASE_URL}/library/findByName`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify({ title }),
+    });
+    return response.json();
+  },
+};
+
+// AI API
+export const aiApi = {
+  generate: async (data: { imageUrls: string[]; prompt: string }) => {
+    const response = await fetch(`${API_BASE_URL}/ai/generate`, {
+      method: 'POST',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  },
+};
+
+export const dashboardApi = {
+  getStats: async () => {
+    const response = await fetch(`${API_BASE_URL}/dashboard/stats`, {
+      headers: getAuthHeaders(),
+    });
+    return response.json();
+  }
+}
