@@ -10,7 +10,7 @@ interface ApiResponse<T> {
 }
 
 const api = axios.create({
-  baseURL: "http://localhost:5002/api/v1"
+  baseURL: "https://flower-boquet-backend.vercel.app/"
   // baseURL: "http://localhost:5000/api/v1"
 })
 
