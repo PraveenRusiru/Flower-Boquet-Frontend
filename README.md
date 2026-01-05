@@ -33,14 +33,11 @@ This is a React (Vite + TypeScript) app deployed on Vercel.
 
 ## Screenshots
 
-> Put screenshots in `frontend/screenshots/` or `frontend/public/` and update paths.
+![image alt](https://github.com/PraveenRusiru/Flower-Boquet-Frontend/blob/30f68db15e238338562e0e73f0ed3a11eb4626dd/Screenshot%202026-01-05%20at%2014.07.57.png)
 
-- Dashboard  
-  ![Dashboard](./screenshots/dashboard.png)
-
-- Products  
-  ![Products](./screenshots/products.png)
-
+![image alt]()
+![image alt]()
+![image alt]()
 ---
 
 ## Setup & Run (Local)
