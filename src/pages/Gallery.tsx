@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, X, Image } from 'lucide-react';
 import ClientNavbar from '@/components/ClientNavbar';
+import Footer from '@/components/Footer';
 
 interface LibraryItem {
   _id: string;
@@ -132,7 +133,7 @@ const Gallery = () => {
           )}
         </div>
       </main>
-
+          <Footer/>
       {/* Image Lightbox */}
       {selectedImage && (
         <div
