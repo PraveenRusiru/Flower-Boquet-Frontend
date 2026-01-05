@@ -19,7 +19,7 @@ const Footer = () => {
                     <Flower2 className="w-7 h-7 text-foreground" />
                   </div>
                   <span className="font-display text-2xl font-bold text-foreground">
-                    Bloom & Petal
+                     Petal Dreams
                   </span>
                 </Link>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -93,16 +93,16 @@ const Footer = () => {
                   <li className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span className="text-muted-foreground text-sm">
-                      123 Flower Street, Colombo, Sri Lanka
+                     Sandamira ,Athalahena, Wawulugala, Galle, Sri Lanka
                     </span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-muted-foreground text-sm">+94 78 458 9109</span>
+                    <span className="text-muted-foreground text-sm">+94 74 356 4951</span>
                   </li>
                   <li className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-muted-foreground text-sm">hello@bloomandpetal.lk</span>
+                    <span className="text-muted-foreground text-sm">thisarawismini97@gmail.com</span>
                   </li>
                 </ul>
               </div>
@@ -115,7 +115,7 @@ const Footer = () => {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-muted-foreground text-sm flex items-center gap-1">
-                © 2024 Bloom & Petal. Made with <Heart className="w-4 h-4 text-destructive fill-destructive" /> for flower lovers.
+                © 2024 Petal Dreams. Made with <Heart className="w-4 h-4 text-destructive fill-destructive" /> for flower lovers.
               </p>
               <div className="flex items-center gap-6 text-sm">
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
