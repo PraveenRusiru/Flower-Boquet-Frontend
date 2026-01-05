@@ -9,7 +9,8 @@ import { Search, Filter, X } from 'lucide-react';
 import ClientNavbar from '@/components/ClientNavbar';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; // Assuming you use react-router
-import { Footer } from 'react-day-picker';
+import Footer from '@/components/Footer';
+
 interface Product {
   _id: string;
   name: string;
