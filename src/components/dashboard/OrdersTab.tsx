@@ -9,10 +9,9 @@ import { toast } from 'sonner';
 import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle } from 'lucide-react';
 
 interface OrderItem {
-  productId: string;
-  quantity: number;
-  price: number;
-  _id: string;
+  giftName: string;
+  giftQty: number;
+  
 }
 
 interface Order {
@@ -125,8 +124,9 @@ const OrdersTab = () => {
                     </TableCell>
                     <TableCell>{formatDate(order.orderDate)}</TableCell>
                     <TableCell>
-                      {order.items.length} item{order.items.length > 1 ? 's' : ''}
-                    </TableCell>
+                  {order.items.map((item) => `${item.giftName} x${item.giftQty}`).join(", ")}
+                      </TableCell>
+
                     <TableCell className="font-display font-semibold">
                       Rs. {order.totalAmount.toLocaleString()}
                     </TableCell>
